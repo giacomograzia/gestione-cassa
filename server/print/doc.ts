@@ -39,13 +39,14 @@ export class PrintDoc {
 export function wrap(text: string, width: number): string[] {
   const out: string[] = [];
   for (const para of text.split('\n')) {
-    let line = '';
+    const indent = /^\s*/.exec(para)![0].slice(0, Math.floor(width / 2));
+    let line = indent;
     for (const word of para.split(/\s+/).filter(Boolean)) {
-      if (!line) line = word;
+      if (line === indent) line += word;
       else if (line.length + 1 + word.length <= width) line += ' ' + word;
       else {
         out.push(line);
-        line = word;
+        line = indent + word;
       }
       while (line.length > width) {
         out.push(line.slice(0, width));
@@ -64,6 +65,7 @@ function alignLine(s: string, width: number, align: Align = 'left'): string {
 }
 
 function rowLine(left: string, right: string, width: number): string[] {
+  if (!right) return wrap(left, width);
   const avail = width - right.length - 1;
   const lines = wrap(left, Math.max(8, avail));
   const last = lines.pop() ?? '';

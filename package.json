@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "description": "Punto cassa web per sagre ed eventi: casse multiple, comande, monitor cucina, magazzino.",
-  "license": "MIT",
   "engines": {
     "node": ">=22"
   },

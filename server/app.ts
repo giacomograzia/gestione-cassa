@@ -23,7 +23,7 @@ export interface AppContext {
 }
 
 export async function buildApp(opts: { db: DB; dataDir: string; webDir?: string; logger?: boolean }) {
-  const app = Fastify({ logger: opts.logger ? { level: 'info' } : false });
+  const app = Fastify({ logger: opts.logger ? { level: 'info' } : false, disableRequestLogging: true });
   const sockets = new Set<WebSocket>();
   const broadcast = (e: RealtimeEvent) => {
     const msg = JSON.stringify(e);
